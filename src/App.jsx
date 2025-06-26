@@ -1,13 +1,13 @@
-import { createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter, redirect } from "react-router-dom"
 import { RouterProvider } from "react-router-dom"
-import { getMenu, getOrder } from "./services/apiRestaurant";
+import { getMenu, getOrder, createOrder } from "./services/apiRestaurant";
 
 //component
 import Home from './ui/Home'
 import Menu from './features/menu/Menu'
 import Cart from './features/cart/Cart'
 import Order from './features/order/Order'
-import CreateOrder, {action as CreateOrderAction} from './features/order/CreateOrder'
+import CreateOrder from './features/order/CreateOrder'
 import AppLayout from "./ui/AppLayout"
 import Error from './ui/Error'
 
@@ -44,7 +44,22 @@ const router = createBrowserRouter([
             {
                 path: '/order/new',
                 Component: CreateOrder,
-                action: CreateOrderAction
+                action: async function action({ request }) {
+                    const formData = await request.formData();
+                    const data = Object.fromEntries(formData)
+                    
+                    const order = {
+                        ...data,
+                        cart: JSON.parse(data.cart),
+                        priority: data.priority === 'on'
+                    }
+                    console.log(order)
+                    
+                    const newOrder = await createOrder(order);
+
+                    return redirect(`/order/${newOrder.id}`)
+                },
+                errorElement: <Error />       
             },
             {
                 path: '/cart',
