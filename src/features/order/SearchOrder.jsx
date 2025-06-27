@@ -19,10 +19,10 @@ const SearchOrder = () => {
     return (
         <form onSubmit={handleSearch}>
             <input 
-            type="text" 
-            placeholder='Input Search #' 
-            value={searchOrderId} 
-            onChange={handleOrderSearch} />
+                type="text" 
+                placeholder='Input Search #' 
+                value={searchOrderId} 
+                onChange={handleOrderSearch} />
         </form>
     )
 }

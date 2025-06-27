@@ -11,6 +11,11 @@ import CreateOrder from './features/order/CreateOrder'
 import AppLayout from "./ui/AppLayout"
 import Error from './ui/Error'
 
+const isValidPhone = (str) =>
+    /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
+        str
+    );
+
 
 const router = createBrowserRouter([
     {
@@ -46,6 +51,7 @@ const router = createBrowserRouter([
                 Component: CreateOrder,
                 action: async function action({ request }) {
                     const formData = await request.formData();
+                    //convert the formData to an object
                     const data = Object.fromEntries(formData)
                     
                     const order = {
@@ -53,8 +59,17 @@ const router = createBrowserRouter([
                         cart: JSON.parse(data.cart),
                         priority: data.priority === 'on'
                     }
-                    console.log(order)
-                    
+
+                    // handling Form submission errors
+                    const errors = {}
+                    if(!isValidPhone(order.phone)) {
+                        errors.phone = 'Please enter a valid phone number as we may need to contact you during delivery'
+                    }
+                    // return error is there is an error with the form submission, and make no server request at all.
+                    if(Object.keys(errors).length > 0) return errors
+
+                    // console.log(order)
+                    // only create a new order if there is no error af all and redirect afterward
                     const newOrder = await createOrder(order);
 
                     return redirect(`/order/${newOrder.id}`)
