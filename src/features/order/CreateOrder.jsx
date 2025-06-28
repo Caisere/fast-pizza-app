@@ -1,5 +1,6 @@
 // import { useState } from "react";
 import { Form, useActionData, useNavigation} from "react-router-dom";
+import Button from "../../ui/Button";
 // import {createOrder} from '../../services/apiRestaurant'
 
 // https://uibakery.io/regex-library/phone-number
@@ -44,39 +45,58 @@ function CreateOrder() {
     const cart = fakeCart;
 
     return (
-        <div>
-            <h2>Ready to order? Let's go!</h2>
+        <div className="px-4 py-6">
+            <h2 className="text-xl font-semibold mb-8"> Ready to order? Let's go!</h2>
 
             <Form method="POST">
-                <div>
-                    <label>First Name</label>
-                    <input type="text" name="customer" required />
+                <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+                    <label htmlFor="customer" className="sm:basis-40">First Name</label>
+                    <input 
+                        type="text" 
+                        name="customer"
+                        id="customer" 
+                        required 
+                        className="input flex-1"
+                    />
                 </div>
 
-                <div>
-                    <label>Phone number</label>
-                    <div>
-                        <input type="tel" name="phone" required />
+                <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+                    <label htmlFor="phone" className="sm:basis-40">Phone number</label>
+                    <div className="grow">
+                        <input 
+                            type="tel" 
+                            name="phone"
+                            id="phone" 
+                            required 
+                            className="input w-full"
+                        />
+                    {formErrors?.phone && <p className="text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md">{formErrors.phone}</p>}
                     </div>
-                    {formErrors?.phone && <p>{formErrors.phone}</p>}
                 </div>
 
-                <div>
-                    <label>Address</label>
-                    <div>
-                        <input type="text" name="address" required />
+                <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+                    <label htmlFor="address" className="sm:basis-40">Address</label>
+                    <div className="grow">
+                        <input 
+                            type="text" 
+                            name="address"
+                            id="address" 
+                            required
+                            className="input w-full"
+                        />
                     </div>
                 </div>
 
-                <div>
+                <div className="mb-12 flex gap-5 items-center">
                     <input
                         type="checkbox"
                         name="priority"
                         id="priority"
+                        className="h-6 w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
                         // value={withPriority}
                         // onChange={(e) => setWithPriority(e.target.checked)}
                     />
-                    <label htmlFor="priority">Want to yo give your order priority?</label>
+                    <label htmlFor="priority" className="font-medium">Want to yo give your order priority?</label>
                 </div>
                 <input 
                     type="hidden" 
@@ -84,7 +104,9 @@ function CreateOrder() {
                     value={JSON.stringify(cart)} 
                 />
                 <div>
-                    <button disabled={isSubmitting}>{isSubmitting ? 'Placing Order...' : 'Order now'}</button>
+                    <Button type='primary' disabled={isSubmitting}>
+                        {isSubmitting ? 'Placing Order...' : 'Order now'}
+                    </Button>
                 </div>
             </Form>
         </div>
