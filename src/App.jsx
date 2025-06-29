@@ -1,6 +1,7 @@
 import { createBrowserRouter, redirect } from "react-router-dom"
 import { RouterProvider } from "react-router-dom"
 import { getMenu, getOrder, createOrder } from "./services/apiRestaurant";
+import { Suspense } from "react";
 
 //component
 import Home from './ui/Home'
@@ -10,6 +11,7 @@ import Order from './features/order/Order'
 import CreateOrder from './features/order/CreateOrder'
 import AppLayout from "./ui/AppLayout"
 import Error from './ui/Error'
+import Loader from "./ui/Loader";
 
 const isValidPhone = (str) =>
     /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
@@ -86,7 +88,11 @@ const router = createBrowserRouter([
 
 
 function App() {
-    return <RouterProvider router={router} />
+    return (
+        <Suspense fallback={Loader}>
+            <RouterProvider router={router} />
+        </Suspense>
+    )
 }
 
 export default App
