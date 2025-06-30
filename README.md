@@ -10,10 +10,12 @@ A modern, responsive web application for ordering pizzas online. Built with Reac
 - **Order Tracking:** Search for and view the status of existing orders.
 - **Responsive UI:** Clean, mobile-friendly design using Tailwind CSS.
 - **Error Handling:** User-friendly error messages and loading states.
+- **Modular Features:** Each main feature (menu, cart, order, user) is organized in its own directory for maintainability and scalability.
 
 ## Tech Stack
 
 - **Frontend:** React 19, React Router 7
+- **State Management:** Redux Toolkit, React Redux
 - **Build Tool:** Vite
 - **Styling:** Tailwind CSS
 - **Linting/Formatting:** ESLint, Prettier
@@ -76,6 +78,7 @@ fast-pizza-app/
 - **Menu & Orders:** Data is fetched from [react-fast-pizza-api.jonas.io](https://react-fast-pizza-api.jonas.io/api).
 - **Order Creation:** Orders are submitted via POST requests; phone validation is performed before submission.
 - **Order Tracking:** Users can search for orders by ID and view their status and estimated delivery time.
+- **State Management:** The app uses Redux Toolkit and React Redux for managing global UI state (cart, user, orders).
 
 ## Main Components & Features
 
@@ -88,5 +91,3 @@ fast-pizza-app/
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request.
-
-
