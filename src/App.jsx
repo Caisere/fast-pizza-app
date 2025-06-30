@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect } from "react-router-dom"
 import { RouterProvider } from "react-router-dom"
 import { getMenu, getOrder, createOrder } from "./services/apiRestaurant";
 import { Suspense } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 //component
 import Home from './ui/Home'
@@ -73,7 +74,7 @@ const router = createBrowserRouter([
                     // console.log(order)
                     // only create a new order if there is no error af all and redirect afterward
                     const newOrder = await createOrder(order);
-
+                    toast.success('Order successfully placed')
                     return redirect(`/order/${newOrder.id}`)
                 },
                 errorElement: <Error />       
@@ -90,6 +91,31 @@ const router = createBrowserRouter([
 function App() {
     return (
         <Suspense fallback={Loader}>
+            <Toaster
+                position="top-center"
+                gutter={12}
+                containerStyle={{
+                    margin: '8px'
+                }}
+                toastOptions={{
+                    success: {
+                        duration: 3000
+                    },
+                    error: {
+                        duration: 5000
+                    },
+                    style: {
+                        fontSize: '16px',
+                        maxWidth: '500px',
+                        padding: '12px 20px',
+                        backgroundColor: "#292524",
+                        color: "#fff",
+                        borderRadius: "4px",
+                        boxShadow:"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                        textAlign: 'center'
+                    }
+                }}
+            />
             <RouterProvider router={router} />
         </Suspense>
     )

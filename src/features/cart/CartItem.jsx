@@ -22,7 +22,7 @@ function CartItem({ item }) {
             </p>
             <div className="flex justify-between items-center sm:gap-6">
                 <p className="text-small font-bold">{formatCurrency(totalPrice)}</p>
-                <DeleteButton pizzaId={pizzaId}/>
+                <DeleteButton pizzaId={pizzaId} name={name}/>
                 {/* <Button type='small' onClick={handleDeleteCart}>Delete</Button> */}
             </div>
         </li>
