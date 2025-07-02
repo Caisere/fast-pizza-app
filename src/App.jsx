@@ -3,6 +3,8 @@ import { RouterProvider } from "react-router-dom"
 import { getMenu, getOrder, createOrder } from "./services/apiRestaurant";
 import { Suspense } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import store from "./store";
+import { clearCart } from "./features/cart/cartSlice";
 
 //component
 import Home from './ui/Home'
@@ -60,7 +62,7 @@ const router = createBrowserRouter([
                     const order = {
                         ...data,
                         cart: JSON.parse(data.cart),
-                        priority: data.priority === 'on'
+                        priority: data.priority === 'true'
                     }
 
                     // handling Form submission errors
@@ -75,6 +77,7 @@ const router = createBrowserRouter([
                     // only create a new order if there is no error af all and redirect afterward
                     const newOrder = await createOrder(order);
                     toast.success('Order successfully placed')
+                    store.dispatch(clearCart())
                     return redirect(`/order/${newOrder.id}`)
                 },
                 errorElement: <Error />       
