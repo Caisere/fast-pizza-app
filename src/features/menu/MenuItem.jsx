@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCart, getCurrentQuantityById } from "../cart/cartSlice";
 import DeleteButton from "../cart/DeleteButton";
 import toast from "react-hot-toast";
+import UpdateCartQuantity from "../cart/UpdateCartQuantity";
 
 
 function MenuItem({ pizza }) {
@@ -38,7 +39,12 @@ function MenuItem({ pizza }) {
                 <div className="mt-auto flex items-center justify-between">
                     {!soldOut ? <p className="text-sm">{formatCurrency(unitPrice)}</p> : <p className="text-sm uppercase font-medium text-stone-500">Sold out</p>}
 
-                    {isCartItem && <DeleteButton pizzaId={id} name={name}/>}
+                    {isCartItem && 
+                        <div className="flex items-center gap-3 sm:gap-3 md:gap-6"> 
+                            <UpdateCartQuantity pizzaId={id}/>
+                            <DeleteButton pizzaId={id} name={name}/>
+                        </div>
+                    }
 
                     {!soldOut && !isCartItem && <Button type='small' onClick={handleAddCart}>Add to Cart</Button>}
                 </div>
