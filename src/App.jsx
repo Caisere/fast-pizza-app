@@ -65,6 +65,7 @@ const router = createBrowserRouter([
                         priority: data.priority === 'true'
                     }
 
+                    
                     // handling Form submission errors
                     const errors = {}
                     if(!isValidPhone(order.phone)) {
@@ -72,11 +73,10 @@ const router = createBrowserRouter([
                     }
                     // return error is there is an error with the form submission, and make no server request at all.
                     if(Object.keys(errors).length > 0) return errors
-
-                    // console.log(order)
                     // only create a new order if there is no error af all and redirect afterward
                     const newOrder = await createOrder(order);
                     toast.success('Order successfully placed')
+                    // console.log(order)
                     store.dispatch(clearCart())
                     return redirect(`/order/${newOrder.id}`)
                 },
