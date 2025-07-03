@@ -1,13 +1,19 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { removeCart } from './cartSlice'
-import Button from '../../ui/Button'
 import toast from 'react-hot-toast'
 
+// imported function
+import { removeCart } from './cartSlice'
+
+//components
+import Button from '../../ui/Button'
 
 const DeleteButton = ({pizzaId, name}) => {
+    //redux action dispatcher
     const dispatch = useDispatch()
 
+
+    // function to delete cart pizza by id
     function handleDeleteCart() {
         dispatch(removeCart(pizzaId))
         toast.success(`successfully deleted ${name} to the cart`);

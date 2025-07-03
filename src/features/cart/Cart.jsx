@@ -1,38 +1,18 @@
-// import { Link } from 'react-router-dom';
+// components
 import LinkButton from '../../ui/LinkButton';
 import Button from '../../ui/Button';
-
 import CartItem from './CartItem'
+
+
+//helper functions
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart } from './cartSlice';
 
-// const fakeCart = [
-//     {
-//         pizzaId: 12,
-//         name: 'Mediterranean',
-//         quantity: 2,
-//         unitPrice: 16,
-//         totalPrice: 32,
-//     },
-//     {
-//         pizzaId: 6,
-//         name: 'Vegetale',
-//         quantity: 1,
-//         unitPrice: 13,
-//         totalPrice: 13,
-//     },
-//     {
-//         pizzaId: 11,
-//         name: 'Spinach and Mushroom',
-//         quantity: 1,
-//         unitPrice: 15,
-//         totalPrice: 15,
-//     },
-// ];
 
 function Cart() {
+
     const userName = useSelector(store => store.user.userName)
-    // const cart = fakeCart;
+
     const cart = useSelector(store => store.cart.cart);
     const dispatch = useDispatch()
 
@@ -71,4 +51,3 @@ function Cart() {
 
 export default Cart;
 
-{/* <Link to="/menu" className='text-sm text-blue-500 hover:text-blue-600 hover:underline'>&larr; Back to menu</Link> */}

@@ -1,15 +1,20 @@
-import { formatCurrency } from "../../utilities/helpers";
-import Button from "../../ui/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart, getCurrentQuantityById } from "../cart/cartSlice";
-import DeleteButton from "../cart/DeleteButton";
 import toast from "react-hot-toast";
+
+//imported function
+import { formatCurrency } from "../../utilities/helpers";
+import { addCart, getCurrentQuantityById } from "../cart/cartSlice";
+
+//components
 import UpdateCartQuantity from "../cart/UpdateCartQuantity";
+import Button from "../../ui/Button";
+import DeleteButton from "../cart/DeleteButton";
+
 
 
 function MenuItem({ pizza }) {
     const dispatch = useDispatch()
-    // id
+    
     const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
     const checkPizzaQuantity = useSelector(getCurrentQuantityById(id))
@@ -17,7 +22,6 @@ function MenuItem({ pizza }) {
     // console.log(checkPizzaQuantity)
 
     function handleAddCart() {
-        // console.log(id)
         const newPizza = {
             pizzaId: id,
             name,

@@ -22,7 +22,7 @@ export const fetchAddress = createAsyncThunk('user/fetchAddress', async function
     const addressObj = await getAddress(position);
 
     // compute the address from the object return from the getAddress function stored in the addressObj above
-    const address = `${addressObj?.locality}, ${addressObj?.city}, ${addressObj?.principalSubdivision}, ${addressObj?.countryName}`
+    const address = `${addressObj?.locality}, ${addressObj?.city}, ${addressObj?.countryName}`
     console.log(addressObj);
 
     // return the position and address when fetchAddress is being called
@@ -69,3 +69,6 @@ const userSlice = createSlice({
 export const {createUser } = userSlice.actions
 
 export default userSlice.reducer
+
+
+export const getUserName = (store) => store.user.userName;

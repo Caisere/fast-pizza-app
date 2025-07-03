@@ -1,23 +1,31 @@
 import { useState } from "react";
 import { Form, useActionData, useNavigation} from "react-router-dom";
-import Button from "../../ui/Button";
 import { useDispatch, useSelector } from "react-redux";
+
+//imported functions
 import { getCart } from "../cart/cartSlice";
-import EmptyCart from "../cart/EmptyCart";
 import { getTotalCartPrice } from "../cart/cartSlice";
 import { formatCurrency } from "../../utilities/helpers";
 import { fetchAddress } from "../user/userSlice";
-// import {createOrder} from '../../services/apiRestaurant'
+
+//components
+import Button from "../../ui/Button";
+import EmptyCart from "../cart/EmptyCart";
+
 
 
 
 function CreateOrder() {
+    //priority state
     const [withPriority, setWithPriority] = useState(false);
+
     const navigation = useNavigation()
-    const isSubmitting = navigation.state === 'submitting'
-    const {userName, status: getAddressStatus, position, address, error: getAddressError }= useSelector(store => store.user)
-    const cart = useSelector(getCart)
     const dispatch = useDispatch()
+
+
+    const isSubmitting = navigation.state === 'submitting'
+    const cart = useSelector(getCart)
+    const {userName, status: getAddressStatus, position, address, error: getAddressError }= useSelector(store => store.user)
 
     // console.log(position)
 
@@ -38,10 +46,12 @@ function CreateOrder() {
     const formErrors = useActionData()
 
 
+    // function to handle get address button/action
     function handleGetLocation(e) {
         e.preventDefault()
         dispatch(fetchAddress())
     }
+
 
     if (cart.length === 0) return <EmptyCart />
 
@@ -95,7 +105,6 @@ function CreateOrder() {
                             <Button disabled={isLoading} type='small' onClick={handleGetLocation}>Get Location</Button>
                         </span>
                     }
-
                 </div>
 
                 <div className="mb-12 flex flex-col gap-5">
@@ -110,14 +119,22 @@ function CreateOrder() {
                         />
                         <label htmlFor="priority" className="font-medium">Want to yo give your order priority?</label>
                     </div>
-                    <span className="text-sm text-yellow-600 font-semibold">Note, marking order as priority attract a 20% price of your order price</span>
+                    <span className="text-sm text-yellow-600 font-semibold">
+                        Note, marking order as priority attract a 20% price of your order price
+                    </span>
                 </div>
+
                 <input 
                     type="hidden" 
                     name='cart' 
                     value={JSON.stringify(cart)} 
                 />
-                <input type="hidden" name='position' value={position.lat && position.lng ? `${position.lat}:${position.lng}` : ''} />
+                <input 
+                    type="hidden" 
+                    name='position' 
+                    value={position.lat && position.lng ? `${position.lat}:${position.lng}` : ''} 
+                />
+
                 <div>
                     <Button type='primary' disabled={isSubmitting}>
                         {isSubmitting && isLoading && getAddressError ? 'Placing Order...' : `Order now for ${formatCurrency(totalPriceWithPriority)}`}

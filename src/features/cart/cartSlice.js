@@ -52,16 +52,24 @@ export const {addCart, removeCart, increaseCartQuantity, decreaseCartQuantity, c
 
 export default cartSlice.reducer
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+// CREATING ALL CART FUNCTIONS IN THE SLICE (ONE CENTRAL PLACE) TO MAKE THEM AVAILABLE FOR USE THROUGH THE APP.
+
+// get the cart pizzas
 export const getCart = (store) => store.cart.cart;
 
+// getting the total price of cart pizza
 export const getTotalCartPrice = (store) => {
     return store.cart.cart.reduce((acc, item) => acc + item.totalPrice, 0);
 }
 
+// getting the total quantities of the cart item
 export const getTotalCartQuantity = (store) =>{
     return store.cart.cart.reduce((acc, cur) => acc + cur.quantity, 0);
 }
 
+// getting current cart pizza by id for the quantity display in the UI
 export const getCurrentQuantityById = (id) => (store) => {
     return store.cart.cart.find(item => item.pizzaId === id)?.quantity ?? 0
 } 

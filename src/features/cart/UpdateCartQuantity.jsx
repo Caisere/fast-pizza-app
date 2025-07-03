@@ -1,19 +1,29 @@
 import React from 'react'
-import Button from '../../ui/Button'
 import { useDispatch, useSelector } from 'react-redux'
+
+//imported functions
 import {decreaseCartQuantity, increaseCartQuantity} from './cartSlice'
 import { getCurrentQuantityById } from './cartSlice'
+
+//components
+import Button from '../../ui/Button'
+
+
 
 const UpdateCartQuantity = ({pizzaId}) => {
 
     const dispatch = useDispatch()
 
+    // current quantity
     const currentQuantity = useSelector(getCurrentQuantityById(pizzaId))
 
+
+    // decrease quantity function
     function handleQuantityDecrease() {
         dispatch(decreaseCartQuantity(pizzaId))
     }
 
+    // increase quantity function
     function handleQuantityIncrease() {
         dispatch(increaseCartQuantity(pizzaId))
     }

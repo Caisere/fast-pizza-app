@@ -8,6 +8,8 @@ A modern, responsive web application for ordering pizzas online. Built with Reac
 - **Add to Cart:** Select pizzas and manage your cart before checkout.
 - **Order Creation:** Place new orders with customer details and optional priority.
 - **Order Tracking:** Search for and view the status of existing orders.
+- **Geolocation Address Autofill:** Autofill your delivery address using your device's location (with permission).
+- **Order Search:** Quickly search for any order by ID from the header.
 - **Responsive UI:** Clean, mobile-friendly design using Tailwind CSS.
 - **Error Handling:** User-friendly error messages and loading states.
 - **Modular Features:** Each main feature (menu, cart, order, user) is organized in its own directory for maintainability and scalability.
@@ -85,6 +87,8 @@ fast-pizza-app/
 - **Menu:** Displays pizzas from the API, allows adding to cart.
 - **Cart:** Shows selected pizzas, allows order placement.
 - **Order:** Displays order details, status, and delivery estimate.
+- **Order Search:** Search for orders by ID using the search bar in the header.
+- **Geolocation/Address Autofill:** Users can autofill their delivery address using browser geolocation when placing an order.
 - **User:** Simple username input to personalize the experience.
 - **UI Components:** Header, Footer, Loader, Buttons, Error messages, etc.
 

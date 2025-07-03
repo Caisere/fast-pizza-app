@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+// helper functions
 import { getTotalCartPrice, getTotalCartQuantity } from "./cartSlice";
 import { formatCurrency } from "../../utilities/helpers";
 
