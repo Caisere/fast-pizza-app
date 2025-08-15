@@ -1,8 +1,15 @@
 
 import { Link } from 'react-router-dom';
 
+type ButtonProps = {
+    children: React.ReactNode;
+    disabled?: boolean;
+    to?: string;
+    type: 'primary' | 'small' | 'round' | 'secondary';
+    onClick?: () => void;
+}
 
-const Button = ({children, disabled, to, type, onClick}) => {
+const Button = ({children, disabled, to, type, onClick}: ButtonProps) => {
 
     const base = 'bg-yellow-400 text-sm inline-block rounded-full font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed'
 

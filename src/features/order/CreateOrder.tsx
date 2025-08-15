@@ -11,21 +11,22 @@ import { fetchAddress } from "../user/userSlice";
 //components
 import Button from "../../ui/Button";
 import EmptyCart from "../cart/EmptyCart";
+import type { AppDispatch, RootState } from "../../store";
 
 
 
 
 function CreateOrder() {
     //priority state
-    const [withPriority, setWithPriority] = useState(false);
+    const [withPriority, setWithPriority] = useState<boolean>(false);
 
     const navigation = useNavigation()
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
 
     const isSubmitting = navigation.state === 'submitting'
     const cart = useSelector(getCart)
-    const {userName, status: getAddressStatus, position, address, error: getAddressError }= useSelector(store => store.user)
+    const {userName, status: getAddressStatus, position, address, error: getAddressError }= useSelector((store:RootState) => store.user)
 
     // console.log(position)
 
@@ -47,8 +48,8 @@ function CreateOrder() {
 
 
     // function to handle get address button/action
-    function handleGetLocation(e) {
-        e.preventDefault()
+    function handleGetLocation() {
+        // e.preventDefault()
         dispatch(fetchAddress())
     }
 
@@ -82,7 +83,7 @@ function CreateOrder() {
                             required 
                             className="input w-full"
                         />
-                    {formErrors?.phone && <p className="text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md">{formErrors.phone}</p>}
+                    {formErrors?.phone && <p className="text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md text-center">{formErrors.phone}</p>}
                     </div>
                 </div>
 
@@ -114,7 +115,7 @@ function CreateOrder() {
                             name="priority"
                             id="priority"
                             className="h-6 w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
-                            value={withPriority}
+                            checked={withPriority}
                             onChange={(e) => setWithPriority(e.target.checked)}
                         />
                         <label htmlFor="priority" className="font-medium">Want to yo give your order priority?</label>

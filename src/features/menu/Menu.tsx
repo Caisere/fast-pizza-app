@@ -2,9 +2,10 @@ import { useLoaderData } from "react-router-dom";
 
 //component 
 import MenuItem from './MenuItem'
+import type { PizzaType } from "../../types";
 
 function Menu() {
-    const menu = useLoaderData();
+    const menu = useLoaderData<PizzaType[]>();
     // console.log(menu)
 
     return <ul className="divide-y divide-stone-200 px-2">

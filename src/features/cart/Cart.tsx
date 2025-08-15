@@ -3,6 +3,8 @@ import LinkButton from '../../ui/LinkButton';
 import Button from '../../ui/Button';
 import CartItem from './CartItem'
 
+import type { AppDispatch,  RootState } from '../../store';
+
 
 //helper functions
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,10 +13,10 @@ import { clearCart } from './cartSlice';
 
 function Cart() {
 
-    const userName = useSelector(store => store.user.userName)
+    const userName = useSelector((store:RootState) => store.user.userName)
 
-    const cart = useSelector(store => store.cart.cart);
-    const dispatch = useDispatch()
+    const cart = useSelector((store:RootState) => store.cart.cart);
+    const dispatch = useDispatch<AppDispatch>()
 
     const noCart = cart.length === 0;
 

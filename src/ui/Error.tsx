@@ -3,7 +3,7 @@ import LinkButton from './LinkButton';
 
 function Error() {
 
-    const error = useRouteError()
+    const error = useRouteError() as { message: string, data?: string };
     // console.log(error)
 
     return (

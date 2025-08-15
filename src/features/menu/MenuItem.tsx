@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import type { PizzaType } from "../../types";
 
 //imported function
 import { formatCurrency } from "../../utilities/helpers";
@@ -10,9 +11,11 @@ import UpdateCartQuantity from "../cart/UpdateCartQuantity";
 import Button from "../../ui/Button";
 import DeleteButton from "../cart/DeleteButton";
 
+type MenuItemProps = {
+    pizza: PizzaType;
+};
 
-
-function MenuItem({ pizza }) {
+function MenuItem({ pizza }: MenuItemProps) {
     const dispatch = useDispatch()
     
     const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;

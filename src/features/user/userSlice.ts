@@ -1,5 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAddress } from "../../services/apiGeocoding";
+import type { RootState } from "../../store";
+
+
+interface FetchAddressResult {
+    position: { lat: number; lng: number; };
+    address: string;
+}
 
 
 function getPosition() {
@@ -9,8 +16,8 @@ function getPosition() {
 }
 
 // using the createAsyncThunk function to get user location when get location action is being called
-export const fetchAddress = createAsyncThunk('user/fetchAddress', async function(){
-    const positionObj = await getPosition() // get the current location object
+export const fetchAddress = createAsyncThunk<FetchAddressResult, void>('user/fetchAddress', async function(){
+    const positionObj = await getPosition() as GeolocationPosition // get the current location object
 
     // extract out the longitude and latitude
     const position = {
@@ -31,12 +38,26 @@ export const fetchAddress = createAsyncThunk('user/fetchAddress', async function
 
 // fetchAddress()
 
+type InitialState = {
+    userName: string,
+    status: string,
+    position: {
+        lat: number | null,
+        lng: number | null
+    },
+    address: string,
+    error: string
+}
+
 
 //initial state
-const initialState = {
+const initialState: InitialState = {
     userName: '',
     status: 'idle',
-    position: {},
+    position: {
+        lat: null, 
+        lng: null,
+    },
     address: '',
     error: ''
 }
@@ -71,4 +92,4 @@ export const {createUser } = userSlice.actions
 export default userSlice.reducer
 
 
-export const getUserName = (store) => store.user.userName;
+export const getUserName = ((store:RootState) => store.user.userName);

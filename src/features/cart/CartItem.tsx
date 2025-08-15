@@ -4,10 +4,15 @@ import UpdateCartQuantity from "./UpdateCartQuantity";
 
 //components
 import DeleteButton from "./DeleteButton";
+import type { cartItem } from "../../types";
 
+type SelectedCartItemProps = Pick<cartItem, 'pizzaId' | 'name' | 'quantity' | 'totalPrice'>;
 
+interface CartItemProps {
+    item: SelectedCartItemProps;
+}
 
-function CartItem({ item }) {
+function CartItem({ item }: CartItemProps) {
 
     const { pizzaId, name, quantity, totalPrice } = item;
 

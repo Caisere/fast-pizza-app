@@ -1,10 +1,12 @@
-import { createBrowserRouter, redirect } from "react-router-dom"
+import { createBrowserRouter, redirect, type LoaderFunctionArgs, type ActionFunctionArgs } from "react-router-dom"
 import { RouterProvider } from "react-router-dom"
 import { getMenu, getOrder, createOrder } from "./services/apiRestaurant";
 import { Suspense } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import store from "./store";
 import { clearCart } from "./features/cart/cartSlice";
+import type { createOrderError } from "./types";
+// import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 
 //component
 import Home from './ui/Home'
@@ -16,7 +18,7 @@ import AppLayout from "./ui/AppLayout"
 import Error from './ui/Error'
 import Loader from "./ui/Loader";
 
-const isValidPhone = (str) =>
+const isValidPhone = (str: string) =>
     /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
         str
     );
@@ -44,7 +46,7 @@ const router = createBrowserRouter([
             {
                 path: '/order/:orderId',
                 Component: Order,
-                loader: async function loader({params}) {
+                loader: async function loader({params}: LoaderFunctionArgs) {
                     const order = await getOrder(params.orderId);
                     return order
                 },
@@ -54,20 +56,23 @@ const router = createBrowserRouter([
             {
                 path: '/order/new',
                 Component: CreateOrder,
-                action: async function action({ request }) {
+                action: async function action({ request }:ActionFunctionArgs) {
                     const formData = await request.formData();
+                    // console.log(formData)
                     //convert the formData to an object
                     const data = Object.fromEntries(formData)
+                    // console.log(data)
                     
                     const order = {
                         ...data,
-                        cart: JSON.parse(data.cart),
+                        phone: data.phone as string,
+                        cart: JSON.parse(data.cart as string),
                         priority: data.priority === 'true'
                     }
-
+                    // console.log(order)
                     
                     // handling Form submission errors
-                    const errors = {}
+                    const errors:createOrderError = {}
                     if(!isValidPhone(order.phone)) {
                         errors.phone = 'Please enter a valid phone number as we may need to contact you during delivery'
                     }
@@ -93,7 +98,7 @@ const router = createBrowserRouter([
 
 function App() {
     return (
-        <Suspense fallback={Loader}>
+        <Suspense fallback={<Loader />}>
             <Toaster
                 position="top-center"
                 gutter={12}
