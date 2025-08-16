@@ -2,15 +2,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const SearchOrder = () => {
-    const [searchOrderId, setSearchOrderId] = useState('')
+    const [searchOrderId, setSearchOrderId] = useState<string>('')
     const navigate = useNavigate()
 
 
-    function handleOrderSearch(e) {
+    function handleOrderSearch(e: React.ChangeEvent<HTMLInputElement>) {
         setSearchOrderId(e.target.value)
     }
 
-    function handleSearch(e) {
+    function handleSearch(e:React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         navigate(`/order/${searchOrderId}`)
         setSearchOrderId('')

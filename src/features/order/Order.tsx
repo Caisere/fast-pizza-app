@@ -10,27 +10,32 @@ import {
 
 import OrderItem from './OrderItem'
 
+import type { PizzaType, CartItem } from "../../types";
 
+type OrderCart = {
+    id: number;
+    status: string;
+    priority: boolean;
+    priorityPrice: number;
+    orderPrice: number;
+    estimatedDelivery: string;
+    cart: CartItem[];
+}
 
 
 function Order() {
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
 
-    const fetcher = useFetcher()
+    const fetcher = useFetcher<PizzaType[]>()
+
 
     useEffect(() => {
         if(!fetcher.data && fetcher.state === 'idle') fetcher.load('/menu')
 
     }, [fetcher])
 
-
-    // console.log(fetcher)
-    // const data = fetcher.data
-
-
-
-    const order = useLoaderData()
-    // console.log(order)
+    const order = useLoaderData<OrderCart>()
+    
     const {
         id,
         status,
@@ -38,8 +43,9 @@ function Order() {
         priorityPrice,
         orderPrice,
         estimatedDelivery,
-        cart,
+        cart
     } = order;
+
     const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
     return (
@@ -63,7 +69,7 @@ function Order() {
 
             <ul className="divide-y divide-stone-200 border-y">
                 {cart.map(item => (
-                    <OrderItem item={item} key={item.pizzaId}  ingredients={fetcher?.data?.find(el => el.id === item.pizzaId).ingredients ?? []} isLoadingIngredients={fetcher.state === 'loading'}/>
+                    <OrderItem item={item} key={item.pizzaId}  ingredients={fetcher?.data?.find(el => el.id === item.pizzaId)?.ingredients ?? []} isLoadingIngredients={fetcher.state === 'loading'}/>
                 ))}
             </ul>
 

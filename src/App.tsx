@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import store from "./store";
 import { clearCart } from "./features/cart/cartSlice";
-import type { createOrderError } from "./types";
+import type { CreateOrderError } from "./types";
 // import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router-dom";
 
 //component
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
                 path: '/order/:orderId',
                 Component: Order,
                 loader: async function loader({params}: LoaderFunctionArgs) {
-                    const order = await getOrder(params.orderId);
+                    const order = await getOrder(params.orderId) ;
                     return order
                 },
                 errorElement: <Error />       
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
                     // console.log(order)
                     
                     // handling Form submission errors
-                    const errors:createOrderError = {}
+                    const errors:CreateOrderError = {}
                     if(!isValidPhone(order.phone)) {
                         errors.phone = 'Please enter a valid phone number as we may need to contact you during delivery'
                     }

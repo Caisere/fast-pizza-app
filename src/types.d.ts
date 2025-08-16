@@ -1,4 +1,4 @@
-export type cartItem = {
+export type CartItem = {
     pizzaId: number,
     name: string,
     quantity: number,
@@ -6,7 +6,7 @@ export type cartItem = {
     totalPrice: number,
 }
 
-export type createOrderError = {
+export type CreateOrderError = {
     phone?: string
 }
 

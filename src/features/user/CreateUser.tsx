@@ -7,15 +7,17 @@ import { createUser } from './userSlice';
 
 //components
 import Button from '../../ui/Button';
+import type { AppDispatch } from '../../store';
 
 
 
 function CreateUser() {
-    const [username, setUsername] = useState('');
-    const dispatch = useDispatch()
+    const [username, setUsername] = useState<string>('');
+
+    const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
 
-    function handleSubmit(e) {
+    function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         dispatch(createUser(username))
         navigate('/menu')

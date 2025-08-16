@@ -1,8 +1,19 @@
 import { formatCurrency } from "../../utilities/helpers";
+import type {CartItem} from "../../types";
 
 
+// Type for the selected order item
+type SelectedOrderItem = Pick<CartItem, 'quantity' | 'name' | 'totalPrice'>;
 
-function OrderItem({ item, isLoadingIngredients, ingredients }) {
+// Type for the props of the OrderItem component
+type OrderItemProps = {
+    item: SelectedOrderItem
+    isLoadingIngredients: boolean;
+    ingredients: string[];
+};
+
+
+function OrderItem({ item, isLoadingIngredients, ingredients }: OrderItemProps) {
     const { quantity, name, totalPrice } = item;
 
     return (
