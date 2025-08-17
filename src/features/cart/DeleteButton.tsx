@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 
 import type { AppDispatch } from '../../store'
 
-type SelectedBeleteButtonProps = Pick<cartItem, 'pizzaId' | 'name'>;
+type SelectedBeleteButtonProps = Pick<CartItem, 'pizzaId' | 'name'>;
 
 interface deleteButtonProps {
     pizzaId: SelectedBeleteButtonProps['pizzaId'];
@@ -16,7 +16,7 @@ import { removeCart } from './cartSlice'
 
 //components
 import Button from '../../ui/Button'
-import type { cartItem } from '../../types'
+import type { CartItem } from '../../types'
 
 const DeleteButton = ({pizzaId, name}: deleteButtonProps) => {
     //redux action dispatcher

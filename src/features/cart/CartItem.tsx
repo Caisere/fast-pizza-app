@@ -4,7 +4,7 @@ import UpdateCartQuantity from "./UpdateCartQuantity";
 
 //components
 import DeleteButton from "./DeleteButton";
-import type { cartItem } from "../../types";
+import type { CartItem as cartItem } from "../../types";
 
 type SelectedCartItemProps = Pick<cartItem, 'pizzaId' | 'name' | 'quantity' | 'totalPrice'>;
 
